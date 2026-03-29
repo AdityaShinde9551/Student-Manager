@@ -1,0 +1,10 @@
+package com.example.studentmanager.repository;
+
+import com.example.studentmanager.model.Student;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface StudentRepository extends JpaRepository<Student, Long> {
+    // JpaRepository gives us: findAll(), save(), deleteById(), findById() etc.
+}

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login | Student Manager</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-card {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            width: 380px;
+            text-align: center;
+        }
+
+        .login-card h2 {
+            margin-bottom: 8px;
+            color: #1e3c72;
+            font-size: 26px;
+        }
+
+        .login-card p.subtitle {
+            color: #666;
+            margin-bottom: 28px;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 13px;
+            color: #444;
+            font-weight: 600;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border 0.2s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #2a5298;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            margin-top: 8px;
+        }
+
+        .btn-login:hover { opacity: 0.9; }
+
+        .alert {
+            padding: 10px 14px;
+            border-radius: 8px;
+            margin-bottom: 18px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .alert-error { background: #ffe0e0; color: #c0392b; }
+        .alert-success { background: #e0f7e9; color: #27ae60; }
+
+        .hint {
+            margin-top: 18px;
+            font-size: 12px;
+            color: #999;
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-card">
+    <h2>🎓 Student Manager</h2>
+    <p class="subtitle">Please sign in to continue</p>
+
+    <!-- Error message -->
+    <div th:if="${errorMsg}" class="alert alert-error" th:text="${errorMsg}"></div>
+
+    <!-- Logout message -->
+    <div th:if="${logoutMsg}" class="alert alert-success" th:text="${logoutMsg}"></div>
+
+    <!-- Login form — action must be /login (POST handled by Spring Security) -->
+    <form th:action="@{/login}" method="post">
+
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username"
+                   placeholder="Enter username" required autofocus />
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password"
+                   placeholder="Enter password" required />
+        </div>
+
+        <button type="submit" class="btn-login">Sign In</button>
+    </form>
+
+    <p class="hint">Default: <strong>admin</strong> / <strong>admin123</strong></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard | Student Manager</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: #f0f4f8;
+            min-height: 100vh;
+        }
+
+        /* ---- Navbar ---- */
+        .navbar {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            padding: 16px 32px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .navbar h1 { font-size: 20px; letter-spacing: 1px; }
+
+        .navbar .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 14px;
+        }
+
+        .navbar .nav-right span { opacity: 0.85; }
+
+        .btn-logout {
+            padding: 8px 18px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.4);
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 13px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-logout:hover { background: rgba(255,255,255,0.35); }
+
+        /* ---- Main container ---- */
+        .container {
+            max-width: 960px;
+            margin: 36px auto;
+            padding: 0 20px;
+        }
+
+        /* ---- Add Student Card ---- */
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 28px 32px;
+            margin-bottom: 28px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+        }
+
+        .card h2 {
+            font-size: 17px;
+            color: #1e3c72;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #e8eef5;
+            padding-bottom: 10px;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+
+        .form-row input {
+            flex: 1;
+            min-width: 160px;
+            padding: 10px 14px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .form-row input:focus {
+            outline: none;
+            border-color: #2a5298;
+        }
+
+        .btn-add {
+            padding: 10px 24px;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.2s;
+            white-space: nowrap;
+        }
+
+        .btn-add:hover { opacity: 0.88; }
+
+        /* ---- Student Table ---- */
+        .table-card h2 {
+            font-size: 17px;
+            color: #1e3c72;
+            margin-bottom: 18px;
+            border-bottom: 2px solid #e8eef5;
+            padding-bottom: 10px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        thead th {
+            background: #1e3c72;
+            color: white;
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        thead th:first-child { border-radius: 8px 0 0 0; }
+        thead th:last-child  { border-radius: 0 8px 0 0; }
+
+        tbody tr { transition: background 0.15s; }
+        tbody tr:nth-child(even) { background: #f7f9fc; }
+        tbody tr:hover { background: #eaf0fb; }
+
+        tbody td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #e8eef5;
+            color: #333;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 3px 10px;
+            background: #e8f0fe;
+            color: #1e3c72;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .btn-delete {
+            padding: 6px 14px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+        .btn-delete:hover { background: #c0392b; }
+
+        .empty-msg {
+            text-align: center;
+            padding: 30px;
+            color: #999;
+            font-size: 14px;
+        }
+
+        /* ---- Stats strip ---- */
+        .stats {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+
+        .stat-box {
+            background: white;
+            border-radius: 10px;
+            padding: 18px 28px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+            flex: 1;
+            text-align: center;
+        }
+
+        .stat-box .stat-num {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1e3c72;
+        }
+
+        .stat-box .stat-label {
+            font-size: 12px;
+            color: #888;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+    <h1>🎓 Student Manager</h1>
+    <div class="nav-right">
+        <span>Welcome, <strong sec:authentication="name">User</strong></span>
+        <!-- Logout via POST (Spring Security default) -->
+        <form th:action="@{/logout}" method="post" style="margin:0;">
+            <button type="submit" class="btn-logout">Logout</button>
+        </form>
+    </div>
+</div>
+
+<!-- Main Content -->
+<div class="container">
+
+    <!-- Stats -->
+    <div class="stats">
+        <div class="stat-box">
+            <div class="stat-num" th:text="${students.size()}">0</div>
+            <div class="stat-label">Total Students</div>
+        </div>
+    </div>
+
+    <!-- Add Student Form -->
+    <div class="card">
+        <h2>➕ Add New Student</h2>
+        <form th:action="@{/students/add}" th:object="${newStudent}" method="post">
+            <div class="form-row">
+                <input type="text" th:field="*{name}"   placeholder="Full Name"    required />
+                <input type="email" th:field="*{email}" placeholder="Email Address" required />
+                <input type="text" th:field="*{course}" placeholder="Course"        required />
+                <button type="submit" class="btn-add">Add Student</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Student List -->
+    <div class="card table-card">
+        <h2>📋 Student List</h2>
+
+        <div th:if="${students.empty}" class="empty-msg">
+            No students found. Add your first student above!
+        </div>
+
+        <table th:unless="${students.empty}">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Course</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="student, stat : ${students}">
+                    <td th:text="${stat.count}"></td>
+                    <td th:text="${student.name}"></td>
+                    <td th:text="${student.email}"></td>
+                    <td><span class="badge" th:text="${student.course}"></span></td>
+                    <td>
+                        <a th:href="@{/students/delete/{id}(id=${student.id})}"
+                           class="btn-delete"
+                           onclick="return confirm('Delete this student?')">
+                            Delete
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+</body>
+</html>
