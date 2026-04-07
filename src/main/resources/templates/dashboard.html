@@ -13,7 +13,7 @@
             min-height: 100vh;
         }
 
-        /* ---- Navbar ---- */
+        /* ── Navbar ── */
         .navbar {
             background: linear-gradient(135deg, #1e3c72, #2a5298);
             color: white;
@@ -23,18 +23,9 @@
             align-items: center;
             box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         }
-
         .navbar h1 { font-size: 20px; letter-spacing: 1px; }
-
-        .navbar .nav-right {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            font-size: 14px;
-        }
-
+        .navbar .nav-right { display: flex; align-items: center; gap: 16px; font-size: 14px; }
         .navbar .nav-right span { opacity: 0.85; }
-
         .btn-logout {
             padding: 8px 18px;
             background: rgba(255,255,255,0.2);
@@ -44,19 +35,81 @@
             text-decoration: none;
             font-size: 13px;
             cursor: pointer;
-            transition: background 0.2s;
         }
-
         .btn-logout:hover { background: rgba(255,255,255,0.35); }
 
-        /* ---- Main container ---- */
-        .container {
-            max-width: 960px;
-            margin: 36px auto;
-            padding: 0 20px;
+        /* ── Container ── */
+        .container { max-width: 1100px; margin: 32px auto; padding: 0 20px; }
+
+        /* ── Stats strip ── */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+        .stat-box {
+            background: white;
+            border-radius: 10px;
+            padding: 16px 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            text-align: center;
+        }
+        .stat-box .stat-num {
+            font-size: 26px;
+            font-weight: 700;
+            color: #1e3c72;
+        }
+        .stat-box .stat-label {
+            font-size: 11px;
+            color: #888;
+            margin-top: 4px;
+        }
+        .stat-box.pass .stat-num  { color: #27ae60; }
+        .stat-box.fail .stat-num  { color: #e74c3c; }
+        .stat-box.avg  .stat-num  { color: #2980b9; font-size: 20px; }
+
+        /* ── Grade distribution bar ── */
+        .grade-bar-wrap {
+            background: white;
+            border-radius: 10px;
+            padding: 18px 24px;
+            margin-bottom: 28px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .grade-bar-wrap h3 {
+            font-size: 14px;
+            color: #1e3c72;
+            margin-bottom: 14px;
+        }
+        .grade-pills {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .grade-pill {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .pill-O { background: #d4efdf; color: #1e8449; }
+        .pill-A { background: #d6eaf8; color: #1a5276; }
+        .pill-B { background: #d7bde2; color: #6c3483; }
+        .pill-C { background: #fdebd0; color: #a04000; }
+        .pill-D { background: #fef9e7; color: #9a7d0a; border: 1px solid #f9e79f; }
+        .pill-F { background: #fadbd8; color: #922b21; }
+        .pill-count {
+            background: rgba(0,0,0,0.12);
+            border-radius: 10px;
+            padding: 1px 8px;
+            font-size: 12px;
         }
 
-        /* ---- Add Student Card ---- */
+        /* ── Card ── */
         .card {
             background: white;
             border-radius: 12px;
@@ -64,7 +117,6 @@
             margin-bottom: 28px;
             box-shadow: 0 2px 12px rgba(0,0,0,0.08);
         }
-
         .card h2 {
             font-size: 17px;
             color: #1e3c72;
@@ -73,89 +125,91 @@
             padding-bottom: 10px;
         }
 
-        .form-row {
-            display: flex;
-            gap: 14px;
-            flex-wrap: wrap;
-        }
-
+        /* ── Add form ── */
+        .form-row { display: flex; gap: 10px; flex-wrap: wrap; }
         .form-row input {
             flex: 1;
-            min-width: 160px;
+            min-width: 120px;
             padding: 10px 14px;
             border: 1px solid #ddd;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 13px;
         }
-
-        .form-row input:focus {
-            outline: none;
-            border-color: #2a5298;
-        }
-
+        .form-row input:focus { outline: none; border-color: #2a5298; }
         .btn-add {
-            padding: 10px 24px;
+            padding: 10px 20px;
             background: linear-gradient(135deg, #1e3c72, #2a5298);
             color: white;
             border: none;
             border-radius: 8px;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
             cursor: pointer;
-            transition: opacity 0.2s;
             white-space: nowrap;
         }
-
         .btn-add:hover { opacity: 0.88; }
 
-        /* ---- Student Table ---- */
-        .table-card h2 {
-            font-size: 17px;
-            color: #1e3c72;
-            margin-bottom: 18px;
-            border-bottom: 2px solid #e8eef5;
-            padding-bottom: 10px;
+        .form-hint {
+            font-size: 12px;
+            color: #aaa;
+            margin-top: 10px;
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 14px;
-        }
-
+        /* ── Table ── */
+        .table-wrap { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 900px; }
         thead th {
             background: #1e3c72;
             color: white;
-            padding: 12px 16px;
+            padding: 11px 12px;
             text-align: left;
             font-weight: 600;
+            white-space: nowrap;
         }
-
         thead th:first-child { border-radius: 8px 0 0 0; }
         thead th:last-child  { border-radius: 0 8px 0 0; }
-
-        tbody tr { transition: background 0.15s; }
         tbody tr:nth-child(even) { background: #f7f9fc; }
         tbody tr:hover { background: #eaf0fb; }
-
         tbody td {
-            padding: 12px 16px;
+            padding: 10px 12px;
             border-bottom: 1px solid #e8eef5;
             color: #333;
+            white-space: nowrap;
         }
 
+        /* Badges */
         .badge {
             display: inline-block;
             padding: 3px 10px;
-            background: #e8f0fe;
-            color: #1e3c72;
             border-radius: 20px;
             font-size: 12px;
             font-weight: 600;
         }
+        .badge-course { background: #e8f0fe; color: #1e3c72; }
+        .grade-O { background: #d4efdf; color: #1e8449; }
+        .grade-A { background: #d6eaf8; color: #1a5276; }
+        .grade-B { background: #d7bde2; color: #6c3483; }
+        .grade-C { background: #fdebd0; color: #a04000; }
+        .grade-D { background: #fef9e7; color: #9a7d0a; }
+        .grade-F { background: #fadbd8; color: #922b21; }
+        .pass { color: #27ae60; font-weight: 600; }
+        .fail { color: #e74c3c; font-weight: 600; }
 
+        /* Action buttons */
+        .btn-edit {
+            padding: 5px 12px;
+            background: #2980b9;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            text-decoration: none;
+            margin-right: 4px;
+        }
+        .btn-edit:hover { background: #1a6fa8; }
         .btn-delete {
-            padding: 6px 14px;
+            padding: 5px 12px;
             background: #e74c3c;
             color: white;
             border: none;
@@ -163,45 +217,10 @@
             font-size: 12px;
             cursor: pointer;
             text-decoration: none;
-            transition: background 0.2s;
         }
-
         .btn-delete:hover { background: #c0392b; }
 
-        .empty-msg {
-            text-align: center;
-            padding: 30px;
-            color: #999;
-            font-size: 14px;
-        }
-
-        /* ---- Stats strip ---- */
-        .stats {
-            display: flex;
-            gap: 16px;
-            margin-bottom: 28px;
-        }
-
-        .stat-box {
-            background: white;
-            border-radius: 10px;
-            padding: 18px 28px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.07);
-            flex: 1;
-            text-align: center;
-        }
-
-        .stat-box .stat-num {
-            font-size: 32px;
-            font-weight: 700;
-            color: #1e3c72;
-        }
-
-        .stat-box .stat-label {
-            font-size: 12px;
-            color: #888;
-            margin-top: 4px;
-        }
+        .empty-msg { text-align: center; padding: 30px; color: #999; font-size: 14px; }
     </style>
 </head>
 <body>
@@ -211,71 +230,135 @@
     <h1>🎓 Student Manager</h1>
     <div class="nav-right">
         <span>Welcome, <strong sec:authentication="name">User</strong></span>
-        <!-- Logout via POST (Spring Security default) -->
         <form th:action="@{/logout}" method="post" style="margin:0;">
             <button type="submit" class="btn-logout">Logout</button>
         </form>
     </div>
 </div>
 
-<!-- Main Content -->
 <div class="container">
 
-    <!-- Stats -->
+    <!-- ── Stats Strip ── -->
     <div class="stats">
         <div class="stat-box">
-            <div class="stat-num" th:text="${students.size()}">0</div>
+            <div class="stat-num" th:text="${totalStudents}">0</div>
             <div class="stat-label">Total Students</div>
+        </div>
+        <div class="stat-box pass">
+            <div class="stat-num" th:text="${passed}">0</div>
+            <div class="stat-label">Passed</div>
+        </div>
+        <div class="stat-box fail">
+            <div class="stat-num" th:text="${failed}">0</div>
+            <div class="stat-label">Failed</div>
+        </div>
+        <div class="stat-box avg">
+            <div class="stat-num" th:text="${avgPercentage} + '%'">0%</div>
+            <div class="stat-label">Class Average</div>
+        </div>
+        <div class="stat-box pass">
+            <div class="stat-num" th:text="${passed > 0 ? #numbers.formatDecimal(passed * 100.0 / totalStudents, 1, 1) + '%' : '0%'}">0%</div>
+            <div class="stat-label">Pass Rate</div>
+        </div>
+        <div class="stat-box fail">
+            <div class="stat-num" th:text="${failed > 0 ? #numbers.formatDecimal(failed * 100.0 / totalStudents, 1, 1) + '%' : '0%'}">0%</div>
+            <div class="stat-label">Fail Rate</div>
         </div>
     </div>
 
-    <!-- Add Student Form -->
+    <!-- ── Grade Distribution ── -->
+    <div class="grade-bar-wrap">
+        <h3>📊 Grade Distribution</h3>
+        <div class="grade-pills">
+            <div class="grade-pill pill-O">O — Outstanding <span class="pill-count" th:text="${gradeO}">0</span></div>
+            <div class="grade-pill pill-A">A — Excellent    <span class="pill-count" th:text="${gradeA}">0</span></div>
+            <div class="grade-pill pill-B">B — Good         <span class="pill-count" th:text="${gradeB}">0</span></div>
+            <div class="grade-pill pill-C">C — Average      <span class="pill-count" th:text="${gradeC}">0</span></div>
+            <div class="grade-pill pill-D">D — Pass         <span class="pill-count" th:text="${gradeD}">0</span></div>
+            <div class="grade-pill pill-F">F — Fail         <span class="pill-count" th:text="${gradeF}">0</span></div>
+        </div>
+    </div>
+
+    <!-- ── Add Student ── -->
     <div class="card">
         <h2>➕ Add New Student</h2>
         <form th:action="@{/students/add}" th:object="${newStudent}" method="post">
             <div class="form-row">
-                <input type="text" th:field="*{name}"   placeholder="Full Name"    required />
-                <input type="email" th:field="*{email}" placeholder="Email Address" required />
-                <input type="text" th:field="*{course}" placeholder="Course"        required />
+                <input type="text"  th:field="*{name}"   placeholder="Full Name"     required />
+                <input type="email" th:field="*{email}"  placeholder="Email Address" required />
+                <input type="text"  th:field="*{course}" placeholder="Course/Branch" required />
+                <input type="number" th:field="*{marksJava}" placeholder="Java"   min="0" max="100" required />
+                <input type="number" th:field="*{marksWeb}"  placeholder="Web"    min="0" max="100" required />
+                <input type="number" th:field="*{marksOs}"   placeholder="OS"     min="0" max="100" required />
+                <input type="number" th:field="*{marksTnm}"  placeholder="T&NM"   min="0" max="100" required />
+                <input type="number" th:field="*{marksToc}"  placeholder="TOC"    min="0" max="100" required />
                 <button type="submit" class="btn-add">Add Student</button>
             </div>
+            <p class="form-hint">Java = Java Programming &nbsp;|&nbsp; Web = Web Technology &nbsp;|&nbsp; OS = Operating System &nbsp;|&nbsp; T&amp;NM = Transform &amp; Numerical Methods &nbsp;|&nbsp; TOC = Theory of Computation</p>
         </form>
     </div>
 
-    <!-- Student List -->
-    <div class="card table-card">
+    <!-- ── Student Table ── -->
+    <div class="card">
         <h2>📋 Student List</h2>
 
         <div th:if="${students.empty}" class="empty-msg">
             No students found. Add your first student above!
         </div>
 
-        <table th:unless="${students.empty}">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Course</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="student, stat : ${students}">
-                    <td th:text="${stat.count}"></td>
-                    <td th:text="${student.name}"></td>
-                    <td th:text="${student.email}"></td>
-                    <td><span class="badge" th:text="${student.course}"></span></td>
-                    <td>
-                        <a th:href="@{/students/delete/{id}(id=${student.id})}"
-                           class="btn-delete"
-                           onclick="return confirm('Delete this student?')">
-                            Delete
-                        </a>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="table-wrap" th:unless="${students.empty}">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Course</th>
+                        <th>Java</th>
+                        <th>Web</th>
+                        <th>OS</th>
+                        <th>T&amp;NM</th>
+                        <th>TOC</th>
+                        <th>Total</th>
+                        <th>%</th>
+                        <th>Grade</th>
+                        <th>Result</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="student, stat : ${students}">
+                        <td th:text="${stat.count}"></td>
+                        <td th:text="${student.name}"></td>
+                        <td th:text="${student.email}"></td>
+                        <td><span class="badge badge-course" th:text="${student.course}"></span></td>
+                        <td th:text="${student.marksJava}"></td>
+                        <td th:text="${student.marksWeb}"></td>
+                        <td th:text="${student.marksOs}"></td>
+                        <td th:text="${student.marksTnm}"></td>
+                        <td th:text="${student.marksToc}"></td>
+                        <td><strong th:text="${student.totalMarks} + '/500'"></strong></td>
+                        <td th:text="${student.percentage} + '%'"></td>
+                        <td>
+                            <span class="badge"
+                                  th:classappend="'grade-' + ${student.grade}"
+                                  th:text="${student.grade}"></span>
+                        </td>
+                        <td>
+                            <span th:text="${student.result}"
+                                  th:class="${student.result == 'Pass'} ? 'pass' : 'fail'"></span>
+                        </td>
+                        <td>
+                            <a th:href="@{/students/edit/{id}(id=${student.id})}"
+                               class="btn-edit">Edit</a>
+                            <a th:href="@{/students/delete/{id}(id=${student.id})}"
+                               class="btn-delete"
+                               onclick="return confirm('Delete this student?')">Delete</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
 </div>
